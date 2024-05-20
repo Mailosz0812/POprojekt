@@ -15,6 +15,7 @@ public class Sala {
     public void dodajPrzedmiotaktualny(Przedmiot p){
         stanAkutalny.add(p);
     }
+
     public void dodajPrzedmiotnastan(Przedmiot p){
         przedmioty.add(p);
     }
@@ -23,7 +24,15 @@ public class Sala {
             System.out.println("Nie ma zadnych przedmiotow akutlanie na stanie lub przedmiot o podanym indeksie nie istnieje");
         }
         else{
-            stanAkutalny.remove(id - 1);
+            stanAkutalny.remove(id);
+        }
+    }
+    public void usunZeStanu(int id){
+        if(przedmioty.isEmpty()){
+            System.out.println("Nie ma zadnych przedmiotow na stanie sali lub przedmiot o podanym indeksie nie istnieje");
+        }
+        else{
+            przedmioty.remove(id);
         }
     }
     public Raport generujRaport(){
@@ -33,6 +42,15 @@ public class Sala {
     }
     public int getNumer(){
         return this.numer;
+    }
+    public List<Przedmiot> generujZestawienie(String stan){
+        List<Przedmiot> zestawienie = new ArrayList<>();
+        for (Przedmiot przedmiot : this.stanAkutalny) {
+            if(przedmiot.getStanPrzedmiotu().equals(stan)){
+                zestawienie.add(new Przedmiot(przedmiot));
+            }
+        }
+        return zestawienie;
     }
 
 

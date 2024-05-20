@@ -7,7 +7,8 @@ public class Przedmiot {
     private int id;
     private static int licznikId = 1;
 
-    public Przedmiot(String nazwa,String data,String stanPrzedmiotu){
+
+    public Przedmiot(String nazwa, String data, String stanPrzedmiotu){
         this.id = licznikId++;
         setDataZakupu(data);
         setNazwa(nazwa);
@@ -42,4 +43,11 @@ public class Przedmiot {
         }
     }
 
+    public String getStanPrzedmiotu() {
+        return stanPrzedmiotu;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

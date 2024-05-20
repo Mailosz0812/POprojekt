@@ -11,5 +11,15 @@ public class Budynek {
     public void dodajSale(Sala s){
         Sale.add(s);
     }
+    public void przeniesPrzedmiot(Przedmiot p,int numerSaliPoczatkowej,int numerSaliKoncowej){
+        for (Sala sala : Sale) {
+            if(sala.getNumer() == numerSaliPoczatkowej){
+                sala.usunAktualny(p.getId());
+            } else if (sala.getNumer() == numerSaliKoncowej) {
+                sala.dodajPrzedmiotaktualny(p);
+                sala.dodajPrzedmiotnastan(p);
+            }
+        }
+    }
 
 }
