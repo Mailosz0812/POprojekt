@@ -50,4 +50,12 @@ public class Przedmiot {
     public int getId() {
         return id;
     }
+
+    public boolean equals(Przedmiot p){
+        return this.id == p.id;
+    }
+    public boolean czyNowy(){
+        LocalDate l = LocalDate.now();
+        return l.isBefore(this.dataZakupu.plusDays(50));
+    }
 }

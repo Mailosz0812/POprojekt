@@ -11,13 +11,9 @@ public class Sala {
     public Sala(int numer){
         this.numer = numer;
     }
-
-    public void dodajPrzedmiotaktualny(Przedmiot p){
-        stanAkutalny.add(p);
-    }
-
     public void dodajPrzedmiotnastan(Przedmiot p){
-        przedmioty.add(p);
+        stanAkutalny.add(new Przedmiot(p));
+        przedmioty.add(new Przedmiot(p));
     }
     public void usunAktualny(int id){
         if(stanAkutalny.isEmpty()){
@@ -43,15 +39,29 @@ public class Sala {
     public int getNumer(){
         return this.numer;
     }
-    public List<Przedmiot> generujZestawienie(String stan){
+    public List<Przedmiot> generujZestawienie(String kryterium){
         List<Przedmiot> zestawienie = new ArrayList<>();
-        for (Przedmiot przedmiot : this.stanAkutalny) {
-            if(przedmiot.getStanPrzedmiotu().equals(stan)){
-                zestawienie.add(new Przedmiot(przedmiot));
+        if(kryterium.equals("brakujace")){
+            for(int i = 0; i < przedmioty.size(); i++){
+                if(przedmioty.get(i).equals(stanAkutalny.get(i))){
+                    zestawienie.add(przedmioty.get(i));
+                }
+            }
+        }
+        else if(kryterium.equals("nowe")){
+            for(int i = 0; i < przedmioty.size(); i++) {
+                if (!przedmioty.get(i).czyNowy()) {
+                    zestawienie.add(przedmioty.get(i));
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < przedmioty.size(); i++) {
+                if (!przedmioty.get(i).getStanPrzedmiotu().equals("kiepski")) {
+                    zestawienie.add(przedmioty.get(i));
+                }
             }
         }
         return zestawienie;
     }
-
-
 }
