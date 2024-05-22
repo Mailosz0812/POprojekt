@@ -16,7 +16,7 @@ public class Budynek {
             if(sala.getNumer() == numerSaliPoczatkowej){
                 sala.usunAktualny(p.getId());
             } else if (sala.getNumer() == numerSaliKoncowej) {
-                sala.dodajPrzedmiotnastan(new Przedmiot(p));
+                sala.dodajPrzedmiotnastan(p);
             }
         }
     }

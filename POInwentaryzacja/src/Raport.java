@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Raport {
-    private int numer;
-    private LocalDate data;
+    private final int numer;
+    private final LocalDate data;
     private List<Przedmiot> przedmioty;
     private static int numerIteracja = 1;
 

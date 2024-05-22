@@ -5,4 +5,11 @@ public class Mysz extends Sprzet{
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
         this.czyBezprzewodowa = czyBezprzewodowa;
     }
+    public Mysz(Mysz m){
+        super(m);
+        this.czyBezprzewodowa = m.czyBezprzewodowa;
+    }
+    protected Mysz clone(){
+        return new Mysz(this);
+    }
 }

@@ -11,6 +11,16 @@ public class Sprzet extends Przedmiot{
         setProducent(producent);
         setOstatniaKonserwacja(ostatniaKonserwacja);
     }
+    public Sprzet(Sprzet s){
+        super(s);
+        this.numerSeryjny = s.numerSeryjny;
+        this.producent = s.producent;
+        this.ostatniaKonserwacja = s.ostatniaKonserwacja;
+    }
+    @Override
+    protected Sprzet clone(){
+        return new Sprzet(this);
+    }
 
     public void setProducent(String producent){
         if(!producent.matches("^[a-zA-Z]+$")){

@@ -5,5 +5,12 @@ public class Monitor extends Sprzet{
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
         this.rozmiarEkranu = rozmiarEkranu;
     }
+    public Monitor(Monitor m){
+        super(m);
+        this.rozmiarEkranu = m.rozmiarEkranu;
+    }
+    protected Monitor clone(){
+        return new Monitor(this);
+    }
 
 }

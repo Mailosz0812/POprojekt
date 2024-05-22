@@ -5,4 +5,13 @@ public class Stol extends Mebel{
         super(nazwa, data, stanPrzedmiotu, szerokosc, dlugosc, wysokosc);
         this.ileOsob = ileOsob;
     }
+    public Stol(Stol s){
+        super(s);
+        this.ileOsob = s.ileOsob;
+    }
+
+    @Override
+    protected Stol clone() {
+        return new Stol(this);
+    }
 }

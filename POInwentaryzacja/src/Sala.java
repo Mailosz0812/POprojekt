@@ -12,8 +12,11 @@ public class Sala {
         this.numer = numer;
     }
     public void dodajPrzedmiotnastan(Przedmiot p){
-        stanAkutalny.add(new Przedmiot(p));
-        przedmioty.add(new Przedmiot(p));
+        stanAkutalny.add(p.clone());
+        przedmioty.add(p.clone());
+    }
+    public void dodajPrzedmiotAktualny(Przedmiot p){
+        stanAkutalny.add(p.clone());
     }
     public void usunAktualny(int id){
         if(stanAkutalny.isEmpty()){

@@ -4,4 +4,11 @@ public class Drukarka extends Sprzet{
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
         this.stanPapieru = stanPapieru;
     }
+    public Drukarka(Drukarka d){
+        super(d);
+        this.stanPapieru = d.stanPapieru;
+    }
+    protected Drukarka clone(){
+        return new Drukarka(this);
+    }
 }

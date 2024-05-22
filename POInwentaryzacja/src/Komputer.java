@@ -8,6 +8,15 @@ public class Komputer extends Sprzet{
         this.pojDysku = pojDysku;
         this.pojRam = pojRam;
     }
+    public Komputer(Komputer k){
+        super(k);
+        this.pojRam = k.pojRam;
+        this.pojDysku = k.pojDysku;
+        this.procesor = k.procesor;
+    }
+    protected Komputer clone(){
+        return new Komputer(this);
+    }
 
     public void setProcesor(String procesor) {
         if(!procesor.matches("^[a-zA-Z0-9]+$")){

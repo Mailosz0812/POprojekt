@@ -6,6 +6,10 @@ public class Projektor extends Sprzet{
         setRozdzielczosc(rozdzielczosc);
 
     }
+    public Projektor(Projektor p){
+        super(p);
+        this.rozdzielczosc = p.rozdzielczosc;
+    }
     public void setRozdzielczosc(String rozdzielczosc){
         if(!rozdzielczosc.matches("^\\d+x\\d+$")){
             System.out.println("Rozdzielczosc podana w zlej formie");
@@ -13,5 +17,8 @@ public class Projektor extends Sprzet{
         else{
             this.rozdzielczosc = rozdzielczosc;
         }
+    }
+    protected Projektor clone(){
+        return new Projektor(this);
     }
 }

@@ -1,10 +1,10 @@
 import java.time.LocalDate;
 
-public class Przedmiot {
-    private String nazwa;
-    private LocalDate dataZakupu;
-    private String stanPrzedmiotu;
-    private int id;
+public class Przedmiot implements Cloneable{
+    protected String nazwa;
+    protected LocalDate dataZakupu;
+    protected String stanPrzedmiotu;
+    protected int id;
     private static int licznikId = 1;
 
 
@@ -19,6 +19,10 @@ public class Przedmiot {
         this.dataZakupu = p.dataZakupu;
         this.stanPrzedmiotu = p.stanPrzedmiotu;
 
+    }
+    @Override
+    protected Przedmiot clone(){
+        return new Przedmiot(this);
     }
     public void setDataZakupu(String dataZakupu) {
         if(!dataZakupu.matches("^(?:(?!0000)\\d{4})-(?:(?:0[1-9]|1[0-2]))-(?:(?:0[1-9]|1\\d|2\\d|3[01]))$\n")){
@@ -36,7 +40,7 @@ public class Przedmiot {
     }
     public void setStanPrzedmiotu(String stan){
         if(!(stan.equals("kiepski") || stan.equals("dobry") || stan.equals("wspanialy") )){
-            System.out.println("Stan przedmiotu moze byc tylko: kiepski, dobry lub wspanialy");
+            System.out.println("Stan przedmiotu moze byc tylko: kiepski, dobry lub wspanialy.");
         }
         else{
             this.stanPrzedmiotu = stan;
