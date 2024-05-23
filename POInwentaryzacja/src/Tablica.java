@@ -5,6 +5,7 @@ public class Tablica extends Mebel{
     public Tablica(Tablica t){
         super(t);
     }
+    @Override
     protected Tablica clone(){
         return new Tablica(this);
     }

@@ -9,6 +9,7 @@ public class Monitor extends Sprzet{
         super(m);
         this.rozmiarEkranu = m.rozmiarEkranu;
     }
+    @Override
     protected Monitor clone(){
         return new Monitor(this);
     }

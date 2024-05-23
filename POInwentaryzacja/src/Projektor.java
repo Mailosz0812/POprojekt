@@ -18,6 +18,7 @@ public class Projektor extends Sprzet{
             this.rozdzielczosc = rozdzielczosc;
         }
     }
+    @Override
     protected Projektor clone(){
         return new Projektor(this);
     }

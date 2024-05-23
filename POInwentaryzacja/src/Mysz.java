@@ -9,6 +9,7 @@ public class Mysz extends Sprzet{
         super(m);
         this.czyBezprzewodowa = m.czyBezprzewodowa;
     }
+    @Override
     protected Mysz clone(){
         return new Mysz(this);
     }

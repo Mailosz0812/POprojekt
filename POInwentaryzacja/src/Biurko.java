@@ -5,4 +5,8 @@ public class Biurko extends Mebel{
     public Biurko(Biurko b){
         super(b);
     }
+    @Override
+    public Biurko clone(){
+        return new Biurko(this);
+    }
 }

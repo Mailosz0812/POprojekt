@@ -1,7 +1,7 @@
-public class Mebel extends Przedmiot{
-    protected int szerokosc;
-    protected int wysokosc;
-    protected int dlugosc;
+public abstract class Mebel extends Przedmiot{
+    private int szerokosc;
+    private int wysokosc;
+    private int dlugosc;
 
     public Mebel(String nazwa,String data,String stanPrzedmiotu, int szerokosc,int dlugosc,int wysokosc){
         super(nazwa, data, stanPrzedmiotu);
@@ -15,5 +15,7 @@ public class Mebel extends Przedmiot{
         this.szerokosc = m.szerokosc;
         this.dlugosc = m.dlugosc;
     }
+    @Override
+    protected abstract Mebel clone();
 
 }

@@ -8,6 +8,7 @@ public class Drukarka extends Sprzet{
         super(d);
         this.stanPapieru = d.stanPapieru;
     }
+    @Override
     protected Drukarka clone(){
         return new Drukarka(this);
     }
