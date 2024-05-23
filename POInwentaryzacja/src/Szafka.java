@@ -6,7 +6,7 @@ public class Szafka extends Mebel{
         super(s);
     }
     @Override
-    protected Szafka clone(){
+    public Szafka clone(){
         return new Szafka(this);
     }
 }

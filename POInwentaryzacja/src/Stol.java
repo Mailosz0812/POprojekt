@@ -11,7 +11,7 @@ public class Stol extends Mebel{
     }
 
     @Override
-    protected Stol clone() {
+    public Stol clone() {
         return new Stol(this);
     }
 }

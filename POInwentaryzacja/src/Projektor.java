@@ -19,7 +19,7 @@ public class Projektor extends Sprzet{
         }
     }
     @Override
-    protected Projektor clone(){
+    public Projektor clone(){
         return new Projektor(this);
     }
 }

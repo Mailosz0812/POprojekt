@@ -15,7 +15,7 @@ public class Komputer extends Sprzet{
         this.procesor = k.procesor;
     }
     @Override
-    protected Komputer clone(){
+    public Komputer clone(){
         return new Komputer(this);
     }
 

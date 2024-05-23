@@ -9,7 +9,7 @@ public class Krzeslo extends Mebel {
         this.kolor = k1.kolor;
     }
     @Override
-    protected Krzeslo clone(){
+    public Krzeslo clone(){
         return new Krzeslo(this);
 
     }
