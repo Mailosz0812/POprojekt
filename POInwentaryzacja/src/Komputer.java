@@ -1,4 +1,5 @@
 public class Komputer extends Sprzet{
+    private static final long  serialVersionUID = 1L;
     private String procesor;
     private double pojRam;
     private double pojDysku;

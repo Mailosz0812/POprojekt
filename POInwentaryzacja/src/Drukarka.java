@@ -1,4 +1,5 @@
 public class Drukarka extends Sprzet{
+    private static final long  serialVersionUID = 1L;
     double stanPapieru;
     public Drukarka(String nazwa,String data,String stanPrzedmiotu,int numerSeryjny,String producent,String ostatniaKonserwacja,double stanPapieru){
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);

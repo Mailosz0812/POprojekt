@@ -1,4 +1,5 @@
 public class Stol extends Mebel{
+    private static final long  serialVersionUID = 1L;
     private int ileOsob;
 
     public Stol(String nazwa,String data,String stanPrzedmiotu, int szerokosc,int dlugosc,int wysokosc,int ileOsob){

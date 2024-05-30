@@ -1,4 +1,5 @@
 public class Monitor extends Sprzet{
+    private static final long  serialVersionUID = 1L;
     private double rozmiarEkranu;
 
     public Monitor(String nazwa,String data,String stanPrzedmiotu,int numerSeryjny,String producent,String ostatniaKonserwacja){

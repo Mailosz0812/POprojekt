@@ -1,4 +1,5 @@
 public abstract class Mebel extends Przedmiot{
+    private static final long  serialVersionUID = 1L;
     private int szerokosc;
     private int wysokosc;
     private int dlugosc;

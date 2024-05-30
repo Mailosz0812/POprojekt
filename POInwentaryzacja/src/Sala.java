@@ -1,8 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sala {
+public class Sala implements Serializable {
+    private static final long  serialVersionUID = 1L;
     private int numer;
     private List<Przedmiot> przedmioty = new ArrayList<>();
     private List<Przedmiot> stanAkutalny = new ArrayList<>();

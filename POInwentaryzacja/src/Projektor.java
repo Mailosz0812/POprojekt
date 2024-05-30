@@ -1,4 +1,5 @@
 public class Projektor extends Sprzet{
+    private static final long  serialVersionUID = 1L;
     private String rozdzielczosc;
 
     public Projektor(String nazwa,String data,String stanPrzedmiotu,int numerSeryjny,String producent,String ostatniaKonserwacja,String rozdzielczosc){

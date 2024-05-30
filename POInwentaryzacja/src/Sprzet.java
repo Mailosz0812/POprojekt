@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import static java.time.LocalDate.parse;
 
 public abstract class Sprzet extends Przedmiot{
+    private static final long  serialVersionUID = 1L;
     private LocalDate ostatniaKonserwacja;
     private int numerSeryjny;
     private String producent;

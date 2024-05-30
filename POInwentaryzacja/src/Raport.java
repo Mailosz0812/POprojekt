@@ -1,8 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Raport {
+public class Raport implements Serializable {
+    private static final long  serialVersionUID = 1L;
     private final int numer;
     private final LocalDate data;
     private List<Przedmiot> przedmioty;
