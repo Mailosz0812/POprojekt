@@ -13,7 +13,12 @@ public class Budynek implements Serializable {
     public void dodajSale(Sala s){
         Sale.add(s);
     }
-    public void przeniesPrzedmiot(Przedmiot p,int numerSaliPoczatkowej,int numerSaliKoncowej){
+
+    public List<Sala> getSale() {
+        return Sale;
+    }
+
+    public void przeniesPrzedmiot(Przedmiot p, int numerSaliPoczatkowej, int numerSaliKoncowej){
         for (Sala sala : Sale) {
             if(sala.getNumer() == numerSaliPoczatkowej){
                 sala.usunAktualny(p.getId());
