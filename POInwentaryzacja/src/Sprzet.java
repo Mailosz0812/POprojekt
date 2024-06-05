@@ -5,7 +5,7 @@ import static java.time.LocalDate.parse;
 public abstract class Sprzet extends Przedmiot{
     private static final long  serialVersionUID = 1L;
     private LocalDate ostatniaKonserwacja;
-    private int numerSeryjny;
+    private final int numerSeryjny;
     private String producent;
 
     protected Sprzet(String nazwa,String data,String stanPrzedmiotu,int numerSeryjny,String producent,String ostatniaKonserwacja){

@@ -1,8 +1,8 @@
 public class Komputer extends Sprzet{
     private static final long  serialVersionUID = 1L;
     private String procesor;
-    private double pojRam;
-    private double pojDysku;
+    private final double pojRam;
+    private final double pojDysku;
     public Komputer(String nazwa,String data,String stanPrzedmiotu,int numerSeryjny,String producent,String ostatniaKonserwacja,String procesor,double pojDysku,double pojRam){
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
         setProcesor(procesor);

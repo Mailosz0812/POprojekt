@@ -4,14 +4,22 @@ import java.util.List;
 
 public class Budynek implements Serializable {
     private static final long  serialVersionUID = 1L;
-    private int numerBudynku;
-    private List<Sala> Sale = new ArrayList<>();
+    private final int numerBudynku;
+    private final List<Sala> Sale = new ArrayList<>();
 
     public Budynek(int numerBudynku){
         this.numerBudynku = numerBudynku;
     }
     public void dodajSale(Sala s){
         Sale.add(s);
+    }
+    public void usunSale(int numer){
+        for (Sala sala : this.Sale) {
+            if(sala.getNumer() == numer){
+                this.Sale.remove(sala);
+                break;
+            }
+        }
     }
 
     public List<Sala> getSale() {
@@ -21,7 +29,7 @@ public class Budynek implements Serializable {
     public void przeniesPrzedmiot(Przedmiot p, int numerSaliPoczatkowej, int numerSaliKoncowej){
         for (Sala sala : Sale) {
             if(sala.getNumer() == numerSaliPoczatkowej){
-                sala.usunAktualny(p.getId());
+                sala.usunAktualny(p);
             } else if (sala.getNumer() == numerSaliKoncowej) {
                 sala.dodajPrzedmiotnastan(p);
             }

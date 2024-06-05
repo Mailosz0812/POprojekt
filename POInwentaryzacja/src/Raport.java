@@ -7,7 +7,7 @@ public class Raport implements Serializable {
     private static final long  serialVersionUID = 1L;
     private final int numer;
     private final LocalDate data;
-    private List<Przedmiot> przedmioty;
+    private final List<Przedmiot> przedmioty;
     private static int numerIteracja = 1;
 
     public Raport(LocalDate data,List<Przedmiot> przedmioty) {

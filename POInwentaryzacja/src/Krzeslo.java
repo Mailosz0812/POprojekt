@@ -1,7 +1,7 @@
 public class Krzeslo extends Mebel {
     private static final long  serialVersionUID = 1L;
     private String kolor;
-    public Krzeslo(String nazwa,String data,String stanPrzedmiotu, int szerokosc,int dlugosc,int wysokosc,String kolor){
+    public Krzeslo(String nazwa,String data,String stanPrzedmiotu, String szerokosc,String dlugosc,String wysokosc,String kolor){
         super(nazwa, data, stanPrzedmiotu, szerokosc, dlugosc, wysokosc);
         setKolor(kolor);
     }
