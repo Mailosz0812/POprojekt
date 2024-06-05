@@ -24,7 +24,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Budynek b1 = new Budynek(1);
+        Budynek tmpb1 = Budynek.Deserialize();
+        if(tmpb1 == null){
+            tmpb1 = new Budynek(1);
+        }
+        Budynek b1 = tmpb1;
         widokSal = new GridPane();
         window = stage;
         layout = new BorderPane();
@@ -43,6 +47,8 @@ public class Main extends Application {
         Menu Sale = new Menu("Sala");
         Menu Inwentaryzacja = new Menu("Inwentaryzacja");
         Menu przedmiot = new Menu("Przedmiot");
+        Button saveButton = new Button("Zapisz stan aplikacji");
+        saveButton.setOnAction(e -> b1.Serialize());
 
 //        Dodawanie menu items i ustawianie ich funkcji
         MenuItem dodajSale = new MenuItem("Dodaj Sale");
@@ -90,6 +96,7 @@ public class Main extends Application {
         widokSal.setVgap(10);
         widokSal.setPadding(new Insets(10,10,10,10));
         widokSal.setAlignment(Pos.TOP_CENTER);
+        
 
         
 //        Ustawianie sceny głównej
@@ -105,7 +112,7 @@ public class Main extends Application {
         widokSal.getChildren().clear();
 
         int Columns = 4;
-        int row = 0;
+        int row = 1;
         int col = 0;
 
         for (Sala sala : sale) {
