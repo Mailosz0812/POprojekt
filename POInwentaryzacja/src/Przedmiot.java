@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public abstract class Przedmiot implements Cloneable, Serializable {
     private static final long  serialVersionUID = 1L;
@@ -82,6 +83,7 @@ public abstract class Przedmiot implements Cloneable, Serializable {
         Button closeButton = new Button("Zamknij");
         closeButton.setOnAction(e -> window.close());
         Button usunButton = new Button("Usun przedmiot");
+        Label errorMessage = new Label("");
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
@@ -98,13 +100,20 @@ public abstract class Przedmiot implements Cloneable, Serializable {
 
         });
         usunButton.setOnAction(e -> {
+            errorMessage.setText("");
             Integer salaNumer = inputNumerSali.getValue();
             Przedmiot p1 = inputPrzedmiot.getValue();
-            for (Sala sala : s) {
-                if(sala.getNumer() == salaNumer){
-                    sala.usunZeStanu(p1);
-                }
+            try {
+                for (Sala sala : s) {
+                    if (sala.getNumer() == salaNumer) {
+                        sala.usunZeStanu(p1);
+                    }
 
+                }
+            }catch(NoSuchElementException e1){
+                errorMessage.setText(e1.getMessage());
+            }catch(NullPointerException e1){
+                errorMessage.setText("Wybierz sale");
             }
         });
         GridPane.setConstraints(numersali,0,0);
@@ -113,7 +122,8 @@ public abstract class Przedmiot implements Cloneable, Serializable {
         GridPane.setConstraints(inputPrzedmiot,1,1);
         GridPane.setConstraints(closeButton,0,2);
         GridPane.setConstraints(usunButton,1,2);
-        layout.getChildren().addAll(numersali,inputNumerSali,przedmiot,inputPrzedmiot,closeButton,usunButton);
+        GridPane.setConstraints(errorMessage,2,2);
+        layout.getChildren().addAll(errorMessage,numersali,inputNumerSali,przedmiot,inputPrzedmiot,closeButton,usunButton);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
         window.showAndWait();

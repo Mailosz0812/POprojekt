@@ -16,6 +16,7 @@ public class Main extends Application {
     BorderPane layout;
     GridPane widokSal;
     ScrollPane scrollPane;
+    HBox hbox;
 
     public static void main(String[] args){
         launch(args);
@@ -47,6 +48,7 @@ public class Main extends Application {
         Menu Sale = new Menu("Sala");
         Menu Inwentaryzacja = new Menu("Inwentaryzacja");
         Menu przedmiot = new Menu("Przedmiot");
+        Menu wiecej = new Menu("Więcej");
         Button saveButton = new Button("Zapisz stan aplikacji");
         saveButton.setOnAction(e -> b1.Serialize());
 
@@ -82,6 +84,8 @@ public class Main extends Application {
             Przedmiot.usunPrzedmiotzeStanuDisplay(b1.getSale());
         });
         MenuItem przeniesPrzedmiot = new MenuItem("Przenies Przedmiot");
+        MenuItem zapisz = new MenuItem("Zapisz stan aplikacji");
+        MenuItem wyszukajPrzedmiot = new MenuItem("Wyszukaj");
 
 //        Dodawanie poszczególnych menu items do menu
         Sale.getItems().addAll(dodajSale,usunSale);
@@ -96,14 +100,19 @@ public class Main extends Application {
         widokSal.setVgap(10);
         widokSal.setPadding(new Insets(10,10,10,10));
         widokSal.setAlignment(Pos.TOP_CENTER);
-        
+
 
         
 //        Ustawianie sceny głównej
-        layout.setTop(mainmenu);
+        HBox.setHgrow(mainmenu, Priority.ALWAYS);
+        HBox.setHgrow(saveButton, Priority.NEVER);
+        hbox = new HBox(mainmenu,saveButton);
+        layout.setTop(hbox);
         layout.setCenter(scrollPane);
         Scene scene = new Scene(layout,600,500);
         window.setScene(scene);
+
+        updateGrid(b1.getSale());
         window.show();
     }
 

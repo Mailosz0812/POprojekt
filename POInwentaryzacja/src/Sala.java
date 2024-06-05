@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static java.awt.SystemColor.window;
 
@@ -35,7 +36,7 @@ public class Sala implements Serializable {
     }
     public void usunAktualny(Przedmiot p1){
         if(stanAkutalny.isEmpty()){
-            System.out.println("Nie ma zadnych przedmiotow akutlanie na stanie lub przedmiot o podanym indeksie nie istnieje");
+            throw new NoSuchElementException("Nie ma więcej przedmiotów akutalnie na stanie");
         }
         else{
             stanAkutalny.remove(p1);
@@ -52,7 +53,7 @@ public class Sala implements Serializable {
 
     public void usunZeStanu(Przedmiot p1){
         if(przedmioty.isEmpty()){
-            System.out.println("Nie ma zadnych przedmiotow na stanie sali lub przedmiot o podanym indeksie nie istnieje");
+            throw new NoSuchElementException("Nie ma więcej przedmiotów na stanie");
         }
         else{
             przedmioty.remove(p1);

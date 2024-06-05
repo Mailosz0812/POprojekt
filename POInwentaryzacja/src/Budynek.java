@@ -36,14 +36,14 @@ public class Budynek implements Serializable {
         }
     }
     public void Serialize(){
-        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("stanAplikacji.ser"))){
+        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("zapisAplikacji.ser"))){
             outputStream.writeObject(this);
         }catch(IOException e){
             e.printStackTrace();
         }
     }
     public static Budynek Deserialize(){
-        File file = new File("stanAplikacji.ser");
+        File file = new File("zapisAplikacji.ser");
         if(!file.exists() || file.length() == 0){
             return null;
         }
