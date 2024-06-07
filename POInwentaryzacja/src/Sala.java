@@ -1,9 +1,14 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -14,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Observable;
 
 import static java.awt.SystemColor.window;
 
@@ -28,7 +34,6 @@ public class Sala implements Serializable {
         this.numer = numer;
     }
     public void dodajPrzedmiotnastan(Przedmiot p){
-        stanAkutalny.add(p.clone());
         przedmioty.add(p.clone());
     }
     public void dodajPrzedmiotAktualny(Przedmiot p){
@@ -97,17 +102,23 @@ public class Sala implements Serializable {
     }
 
 //    Metoda określająca jak wyświetlac obiekt sali w GUI
-    public void display(){
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Sala"+this);
+    public HBox display(Main main,GridPane previousGrid){
+//        Dodawanie ObservableList ,aby ułatwić wyświetlanie listy przedmiotów na ekranie
+        ObservableList<Przedmiot> stanSalilista = FXCollections.observableArrayList(this.przedmioty);
+        ObservableList<Przedmiot> stanAktualnySalilista = FXCollections.observableArrayList(this.stanAkutalny);
+
+//        Dodawanie elementów okna
+        ListView stanSali = new ListView(stanSalilista);
+        ListView stanAktualnySali = new ListView(stanAktualnySalilista);
+        HBox listy = new HBox();
+
+//        Dodawanie elemntów zawartych w oknie
         Button closeButton = new Button("Zamknij");
-        Label l1 = new Label("Witaj na stronie");
-        closeButton.setOnAction(e -> window.close());
-        VBox layout = new VBox(l1,closeButton);
-        Scene scene = new Scene(layout,600,500);
-        window.setScene(scene);
-        window.showAndWait();
+        closeButton.setOnAction(e -> main.previousLayout(previousGrid));
+
+//        Dodawanie data-containers do layoutu
+        listy.getChildren().addAll(stanSali,stanAktualnySali,closeButton);
+        return listy;
     }
     public static void dodajDisplay(Budynek b1){
 //        Definiowanie okna aplikacji i zablokowanie innych okien oprócz aktualnego

@@ -64,21 +64,21 @@ public class Biurko extends Mebel{
             String wysokoscValue = inputwysokosc.getText();
             String dlugoscvalue = inputDlugosc.getText();
             try{
-                if(inputNumerSali.getValue() == null) {
-
-                }
-                for (Sala sala : s) {
-                    if(sala.getNumer() == inputNumerSali.getValue()){
-                        Biurko b = new Biurko(nazwa,data,stanPrzedmiotuValue,szerokoscValue,wysokoscValue,dlugoscvalue);
-                        sala.dodajPrzedmiotnastan(b);
-                        sala.dodajPrzedmiotAktualny(b);
-                        break;
+                if(inputNumerSali.getValue() != null) {
+                    for (Sala sala : s) {
+                        if (sala.getNumer() == inputNumerSali.getValue()) {
+                            Biurko b = new Biurko(nazwa, data, stanPrzedmiotuValue, szerokoscValue, wysokoscValue, dlugoscvalue);
+                            sala.dodajPrzedmiotnastan(b);
+                            sala.dodajPrzedmiotAktualny(b);
+                            break;
+                        }
                     }
+                }
+                else{
+                    errorMessage.setText("Podaj numer sali");
                 }
             }catch(IllegalArgumentException e1){
                 errorMessage.setText(e1.getMessage());
-            }catch(NullPointerException e1){
-                errorMessage.setText("Podaj numer sali");
             }
 
 
@@ -101,7 +101,7 @@ public class Biurko extends Mebel{
         GridPane.setConstraints(submitButton,0,7);
         GridPane.setConstraints(closeButton,1,7);
         GridPane.setConstraints(errorMessage,3,6);
-        layout.getChildren().addAll(errorMessage,numerSali,inputNumerSali,name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,szerokosc,inputSzerokosc,wysokosc,inputwysokosc,dlugosc,inputDlugosc,closeButton,submitButton);
+        layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,szerokosc,inputSzerokosc,dlugosc,inputDlugosc,wysokosc,inputwysokosc,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
 
 
         Scene scene = new Scene(layout,650,600);

@@ -17,6 +17,7 @@ public class Main extends Application {
     GridPane widokSal;
     ScrollPane scrollPane;
     HBox hbox;
+    Scene scene;
 
     public static void main(String[] args){
         launch(args);
@@ -48,7 +49,6 @@ public class Main extends Application {
         Menu Sale = new Menu("Sala");
         Menu Inwentaryzacja = new Menu("Inwentaryzacja");
         Menu przedmiot = new Menu("Przedmiot");
-        Menu wiecej = new Menu("Więcej");
         Button saveButton = new Button("Zapisz stan aplikacji");
         saveButton.setOnAction(e -> b1.Serialize());
 
@@ -66,22 +66,34 @@ public class Main extends Application {
         MenuItem generujRaport = new MenuItem("Generuj Raport");
         MenuItem generujZestawienie = new MenuItem("Generuj Zestawienie");
         Menu dodajPrzedmiot = new Menu("Dodaj Przedmiot");
-        MenuItem Drukarka = new MenuItem("Drukarka");
+        MenuItem drukarka = new MenuItem("Drukarka");
+        drukarka.setOnAction(e -> {Drukarka.displayAddDrukarka(b1.getSale());});
         MenuItem biurko = new MenuItem("Biurko");
         biurko.setOnAction(e -> {
             Biurko.display(b1.getSale());
         });
-        MenuItem Komputer = new MenuItem("Komputer");
-        MenuItem Monitor = new MenuItem("Monitor");
-        MenuItem Mysz = new MenuItem("Mysz");
-        MenuItem Projektor = new MenuItem("Projektor");
+        MenuItem komputer = new MenuItem("Komputer");
+        komputer.setOnAction(e -> {
+            Komputer.displayAddKomputer(b1.getSale());
+        });
+
+        MenuItem monitor = new MenuItem("Monitor");
+        monitor.setOnAction(e -> Monitor.displayAddMonitor(b1.getSale()));
+        MenuItem mysz = new MenuItem("Mysz");
+        mysz.setOnAction(e -> Mysz.displayAddMysz(b1.getSale()));
+        MenuItem projektor = new MenuItem("Projektor");
+        projektor.setOnAction(e -> Projektor.displayAddProjektor(b1.getSale()));
         MenuItem stol = new MenuItem("Stol");
-        MenuItem Szafka = new MenuItem("Szafka");
-        MenuItem Tablica = new MenuItem("Tablica");
-        MenuItem Krzeslo = new MenuItem("Krzeslo");
+        stol.setOnAction(e -> Stol.displayAddStol(b1.getSale()));
+        MenuItem szafka = new MenuItem("Szafka");
+        szafka.setOnAction(e -> Szafka.displayAddSzafka(b1.getSale()));
+        MenuItem tablica = new MenuItem("Tablica");
+        tablica.setOnAction(e -> Tablica.displayAddStol(b1.getSale()));
+        MenuItem krzeslo = new MenuItem("Krzeslo");
+        krzeslo.setOnAction(e -> Krzeslo.displayAddKrzeslo(b1.getSale()));
         MenuItem usunPrzedmiot = new MenuItem("Usun Przedmiot");
         usunPrzedmiot.setOnAction(e -> {
-            Przedmiot.usunPrzedmiotzeStanuDisplay(b1.getSale());
+            Przedmiot.usunPrzedmiotDisplay(b1.getSale());
         });
         MenuItem przeniesPrzedmiot = new MenuItem("Przenies Przedmiot");
         MenuItem zapisz = new MenuItem("Zapisz stan aplikacji");
@@ -91,7 +103,7 @@ public class Main extends Application {
         Sale.getItems().addAll(dodajSale,usunSale);
         Inwentaryzacja.getItems().addAll(generujRaport,generujZestawienie);
         przedmiot.getItems().addAll(dodajPrzedmiot,usunPrzedmiot,przeniesPrzedmiot);
-        dodajPrzedmiot.getItems().addAll(Drukarka,biurko,Komputer,Monitor,Mysz,Projektor,stol,Szafka,Tablica,Krzeslo);
+        dodajPrzedmiot.getItems().addAll(drukarka,biurko,komputer,monitor,mysz,projektor,stol,szafka,tablica,krzeslo);
 
         mainmenu.getMenus().addAll(Sale,Inwentaryzacja,przedmiot);
 
@@ -109,7 +121,7 @@ public class Main extends Application {
         hbox = new HBox(mainmenu,saveButton);
         layout.setTop(hbox);
         layout.setCenter(scrollPane);
-        Scene scene = new Scene(layout,600,500);
+        scene = new Scene(layout,600,500);
         window.setScene(scene);
 
         updateGrid(b1.getSale());
@@ -126,7 +138,7 @@ public class Main extends Application {
 
         for (Sala sala : sale) {
             Button but = new Button(sala.toString());
-            but.setOnAction(e -> sala.display());
+            but.setOnAction(e -> layout.setCenter(sala.display(this,widokSal)));
             but.setPrefSize(100,100);
             widokSal.add(but,col,row);
             col++;
@@ -136,9 +148,11 @@ public class Main extends Application {
             }
 
         }
-
-        
     }
+    public void previousLayout(GridPane previousGrid){
+        layout.setCenter(previousGrid);
+    }
+
 }
 
 

@@ -68,7 +68,7 @@ public abstract class Przedmiot implements Cloneable, Serializable {
         LocalDate l = LocalDate.now();
         return l.isBefore(this.dataZakupu.plusDays(50));
     }
-    public static void usunPrzedmiotzeStanuDisplay(List<Sala> s)
+    public static void usunPrzedmiotDisplay(List<Sala> s)
     {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -107,6 +107,7 @@ public abstract class Przedmiot implements Cloneable, Serializable {
                 for (Sala sala : s) {
                     if (sala.getNumer() == salaNumer) {
                         sala.usunZeStanu(p1);
+                        sala.usunAktualny(p1);
                     }
 
                 }
