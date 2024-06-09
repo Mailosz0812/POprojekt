@@ -32,6 +32,11 @@ public class Komputer extends Sprzet{
         return new Komputer(this);
     }
 
+    @Override
+    public String toString() {
+        return "Komputer{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+
     private void setProcesor(String procesor) {
         if(!procesor.matches("^[A-Za-z0-9]+$")){
             throw new IllegalArgumentException("Nazwa procesora moze być tylko alfanumeryczna");

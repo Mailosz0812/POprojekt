@@ -34,6 +34,11 @@ public class Drukarka extends Sprzet{
     public Drukarka clone(){
         return new Drukarka(this);
     }
+
+    @Override
+    public String toString() {
+        return "Drukarka{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
     public static void displayAddDrukarka(List<Sala> s){
         Stage window = new Stage();
         GridPane layout = new GridPane();

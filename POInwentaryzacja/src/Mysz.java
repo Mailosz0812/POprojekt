@@ -23,6 +23,12 @@ public class Mysz extends Sprzet{
     public Mysz clone(){
         return new Mysz(this);
     }
+
+    @Override
+    public String toString() {
+        return "Mysz{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+    
     public static void displayAddMysz(List<Sala> s) {
 //        Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
         Stage window = new Stage();

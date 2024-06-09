@@ -22,6 +22,12 @@ public class Tablica extends Mebel{
     public Tablica clone(){
         return new Tablica(this);
     }
+
+    @Override
+    public String toString() {
+        return "Tablica{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+   
     public static void displayAddStol(List<Sala> s){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

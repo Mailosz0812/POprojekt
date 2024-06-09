@@ -22,6 +22,12 @@ public class Biurko extends Mebel{
     public Biurko clone(){
         return new Biurko(this);
     }
+
+    @Override
+    public String toString() {
+        return "Biurko{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+}
     public static void display(List<Sala> s){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
