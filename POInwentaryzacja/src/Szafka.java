@@ -22,6 +22,12 @@ public class Szafka extends Mebel{
     public Szafka clone(){
         return new Szafka(this);
     }
+
+    @Override
+    public String toString() {
+        return "Szafka{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+    
     public static void displayAddSzafka(List<Sala> s){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
