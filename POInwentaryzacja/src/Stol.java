@@ -28,6 +28,11 @@ public class Stol extends Mebel{
         return new Stol(this);
     }
 
+    @Override
+    public String toString() {
+        return "Stol{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+
     public static void displayAddStol(List<Sala> s){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
