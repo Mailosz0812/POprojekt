@@ -24,6 +24,12 @@ public class Projektor extends Sprzet{
     public Projektor clone(){
         return new Projektor(this);
     }
+
+    @Override
+    public String toString() {
+        return "Projektor{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+    
     public static void displayAddProjektor(List<Sala> s) {
 //        Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
         Stage window = new Stage();
