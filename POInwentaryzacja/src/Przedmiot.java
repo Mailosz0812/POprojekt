@@ -14,9 +14,9 @@ import java.util.NoSuchElementException;
 
 public abstract class Przedmiot implements Cloneable, Serializable {
     private static final long  serialVersionUID = 1L;
-    private final String nazwa;
+    protected final String nazwa;
     private LocalDate dataZakupu;
-    private String stanPrzedmiotu;
+    protected String stanPrzedmiotu;
     private final int id;
     private static int licznikId = 1;
 

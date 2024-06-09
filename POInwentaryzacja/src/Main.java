@@ -58,7 +58,6 @@ public class Main extends Application {
 
 //        Elementy głównego menu
         Menu Sale = new Menu("Sala");
-        Menu Inwentaryzacja = new Menu("Inwentaryzacja");
         Menu przedmiot = new Menu("Przedmiot");
         Button saveButton = new Button("Zapisz stan aplikacji");
         saveButton.setOnAction(e -> b1.Serialize());
@@ -67,15 +66,13 @@ public class Main extends Application {
         MenuItem dodajSale = new MenuItem("Dodaj Sale");
         dodajSale.setOnAction(e -> {
             Sala.dodajDisplay(b1);
-            updateGrid(b1.getSale());
+            updateGrid(b1);
         });
         MenuItem usunSale = new MenuItem("Usun Sale");
         usunSale.setOnAction(e -> {
             Sala.usunDisplay(b1);
-            updateGrid(b1.getSale());
+            updateGrid(b1);
         });
-        MenuItem generujRaport = new MenuItem("Generuj Raport");
-        MenuItem generujZestawienie = new MenuItem("Generuj Zestawienie");
         Menu dodajPrzedmiot = new Menu("Dodaj Przedmiot");
         MenuItem drukarka = new MenuItem("Drukarka");
         drukarka.setOnAction(e -> {Drukarka.displayAddDrukarka(b1.getSale());});
@@ -116,10 +113,9 @@ public class Main extends Application {
 
 //        Dodawanie poszczególnych menu items do menu
         Sale.getItems().addAll(dodajSale,usunSale);
-        Inwentaryzacja.getItems().addAll(generujRaport,generujZestawienie);
         przedmiot.getItems().addAll(dodajPrzedmiot,usunPrzedmiot,przeniesPrzedmiot);
         dodajPrzedmiot.getItems().addAll(drukarka,biurko,komputer,monitor,mysz,projektor,stol,szafka,tablica,krzeslo);
-        mainmenu.getMenus().addAll(Sale,Inwentaryzacja,przedmiot);
+        mainmenu.getMenus().addAll(Sale,przedmiot);
 
 //        GridPane do widoku sal
         widokSal.setHgap(15);
@@ -133,24 +129,24 @@ public class Main extends Application {
         hbox = new HBox(10,mainmenu,szukaj,szukajButton,typWyszukiwania,saveButton);
         layout.setTop(hbox);
         layout.setCenter(scrollPane);
-        scene = new Scene(layout,850,750);
+        scene = new Scene(layout,950,750);
         window.setScene(scene);
         window.setResizable(false);
-        updateGrid(b1.getSale());
+        updateGrid(b1);
         window.show();
     }
 
 //    Metoda updateGrid odswieza widok sal w siatce po dodaniu lub usunieciu nowej sali
-    private void updateGrid(List<Sala> sale){
+    private void updateGrid(Budynek b1){
         widokSal.getChildren().clear();
 
         int Columns = 5;
         int row = 1;
         int col = 0;
 
-        for (Sala sala : sale) {
+        for (Sala sala : b1.getSale()) {
             Button but = new Button(sala.toString());
-            but.setOnAction(e -> layout.setCenter(sala.display(this,widokSal)));
+            but.setOnAction(e -> layout.setCenter(sala.display(this,widokSal,b1)));
             but.setPrefSize(100,100);
             widokSal.add(but,col,row);
             col++;
@@ -177,8 +173,10 @@ public class Main extends Application {
         try {
             ObservableList<Przedmiot> wyniki = wynikiLista(s, poCzym, query);
             if (wyniki.isEmpty()) {
+                VBox box = new VBox(errorMessage);
                 errorMessage.setText("Nie ma takiego przedmiotu");
-                scene = new Scene(errorMessage,650,600);
+                box.setAlignment(Pos.CENTER);
+                scene = new Scene(box,250,200);
             } else {
                 // Dodanie wyników do ListView
                 for (Przedmiot przedmiot : wyniki) {
@@ -189,8 +187,10 @@ public class Main extends Application {
             window.setScene(scene);
         } catch (IllegalArgumentException e1) {
             // Jeśli wystąpił błąd, wyświetl błąd wyswietla się komunikat
+            VBox box = new VBox(errorMessage);
             errorMessage.setText(e1.getMessage());
-            scene = new Scene(errorMessage,650,600);
+            box.setAlignment(Pos.CENTER);
+            scene = new Scene(box,250,200);
             window.setScene(scene);
         }
         window.showAndWait();

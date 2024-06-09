@@ -27,11 +27,21 @@ public class Budynek implements Serializable {
     }
 
     public void przeniesPrzedmiot(Przedmiot p, int numerSaliPoczatkowej, int numerSaliKoncowej){
+        if(numerSaliKoncowej == numerSaliPoczatkowej){
+            throw new IllegalArgumentException("Podaj prawidłowy numer sali");
+        }
         for (Sala sala : Sale) {
             if(sala.getNumer() == numerSaliPoczatkowej){
-                sala.usunAktualny(p);
+                sala.usunZeStanu(p);
+                for (Przedmiot p1 : sala.getStanAkutalny()) {
+                    if(p.equals(p1)){
+                        sala.usunAktualny(p1);
+                        break;
+                    }
+                }
             } else if (sala.getNumer() == numerSaliKoncowej) {
                 sala.dodajPrzedmiotnastan(p);
+                sala.dodajPrzedmiotAktualny(p);
             }
         }
     }
