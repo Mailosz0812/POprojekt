@@ -26,6 +26,12 @@ public class Krzeslo extends Mebel {
         return new Krzeslo(this);
 
     }
+
+    @Override
+    public String toString() {
+        return "Krzeslo{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
+    
     public void setKolor(String kolor){
         if(!kolor.matches("^[a-zA-Z]+$")){
             throw new IllegalArgumentException("Kolor składa się tylko z liter :)");
