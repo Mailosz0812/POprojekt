@@ -1,19 +1,18 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 
-import static java.awt.SystemColor.window;
 
 public class Sala implements Serializable {
     private static final long  serialVersionUID = 1L;
@@ -102,7 +100,7 @@ public class Sala implements Serializable {
     }
 
 //    Metoda określająca jak wyświetlac obiekt sali w GUI
-    public HBox display(Main main,GridPane previousGrid){
+    public GridPane display(Main main,GridPane previousGrid){
 //        Dodawanie ObservableList ,aby ułatwić wyświetlanie listy przedmiotów na ekranie
         ObservableList<Przedmiot> stanSalilista = FXCollections.observableArrayList(this.przedmioty);
         ObservableList<Przedmiot> stanAktualnySalilista = FXCollections.observableArrayList(this.stanAkutalny);
@@ -110,14 +108,51 @@ public class Sala implements Serializable {
 //        Dodawanie elementów okna
         ListView stanSali = new ListView(stanSalilista);
         ListView stanAktualnySali = new ListView(stanAktualnySalilista);
-        HBox listy = new HBox();
+        GridPane listy = new GridPane();
+        listy.setHgap(50);
+        listy.setVgap(10);
+        listy.setPadding(new Insets(15,15,20,20));
 
 //        Dodawanie elemntów zawartych w oknie
         Button closeButton = new Button("Zamknij");
         closeButton.setOnAction(e -> main.previousLayout(previousGrid));
+        Label errorMessage = new Label("");
+        Label stanprzedmioty = new Label("Przedmioty na stanie sali: ");
+        Label stanAktualny = new Label("Przedmioty aktualnie w sali: ");
+        VBox box = new VBox();
+        errorMessage.setAlignment(Pos.TOP_LEFT);
+        box.getChildren().add(errorMessage);
 
-//        Dodawanie data-containers do layoutu
-        listy.getChildren().addAll(stanSali,stanAktualnySali,closeButton);
+//        Dodawanie data-containers do layoutu zależnie od stanu list przedmiotów
+        if(this.przedmioty.isEmpty() && this.stanAkutalny.isEmpty()){
+            errorMessage.setText("W tej sali nie ma żadnych przedmiotów.");
+            listy.add(stanprzedmioty,0,0);
+            listy.add(stanAktualny,1,0);
+            listy.add(box,0,1);
+            listy.add(closeButton,1,2);
+        } else if (this.przedmioty.isEmpty()) {
+            errorMessage.setText("Sala nie ma żadnych przedmiotów na stanie.");
+            listy.add(stanprzedmioty,0,0);
+            listy.add(box,0,1);
+            listy.add(stanAktualny,1,0);
+            listy.add(stanAktualnySali,1,1);
+            listy.add(closeButton,1,2);
+        }
+        else if(this.stanAkutalny.isEmpty()){
+            errorMessage.setText("Aktualnie w sali nie ma przedmiotów");
+            listy.add(stanprzedmioty,0,0);
+            listy.add(stanSali,0,1);
+            listy.add(stanAktualny,1,0);
+            listy.add(box,1,1);
+            listy.add(closeButton,1,2);
+        }
+        else{
+            listy.add(stanprzedmioty,0,0);
+            listy.add(stanSali,0,1);
+            listy.add(stanAktualny,1,0);
+            listy.add(stanAktualnySali,1,1);
+            listy.add(closeButton,1,2);
+        }
         return listy;
     }
     public static void dodajDisplay(Budynek b1){

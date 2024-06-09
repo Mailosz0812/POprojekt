@@ -80,10 +80,42 @@ public abstract class Przedmiot implements Cloneable, Serializable {
         ChoiceBox<Integer> inputNumerSali = new ChoiceBox<>();
         Label przedmiot = new Label("Wybierz przedmiot z sali do usunięcia");
         ChoiceBox<Przedmiot> inputPrzedmiot = new ChoiceBox<>();
+        Label usunLabel = new Label("Skąd usunąć przedmiot");
+        ChoiceBox<String> inputUsun = new ChoiceBox<>();
+        inputUsun.getItems().addAll("Usun ze stanu","Usun aktualny");
         Button closeButton = new Button("Zamknij");
         closeButton.setOnAction(e -> window.close());
         Button usunButton = new Button("Usun przedmiot");
         Label errorMessage = new Label("");
+        Przedmiot.setchoosingLogic(s,inputNumerSali,inputPrzedmiot,inputUsun);
+        Przedmiot.setusunButton(s,usunButton,errorMessage,inputNumerSali,inputPrzedmiot,inputUsun);
+        GridPane.setConstraints(numersali,0,0);
+        GridPane.setConstraints(inputNumerSali,1,0);
+        GridPane.setConstraints(usunLabel,0,1);
+        GridPane.setConstraints(inputUsun,1,1);
+        GridPane.setConstraints(przedmiot,0,2);
+        GridPane.setConstraints(inputPrzedmiot,1,2);
+        GridPane.setConstraints(closeButton,0,3);
+        GridPane.setConstraints(usunButton,1,3);
+        GridPane.setConstraints(errorMessage,3,3);
+        layout.getChildren().addAll(numersali,inputNumerSali,przedmiot,inputPrzedmiot,usunLabel,inputUsun,closeButton,usunButton,errorMessage);
+        Scene scene = new Scene(layout,650,600);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
+    public String getNazwa() {
+        return this.nazwa;
+    }
+    private static void updatePrzedmiotList(ChoiceBox<Przedmiot> inputPrzedmiot, String usunValue, Sala sala) {
+        inputPrzedmiot.getItems().clear();
+        if ("Usun ze stanu".equals(usunValue)) {
+            inputPrzedmiot.getItems().addAll(sala.getPrzedmioty());
+        } else if ("Usun aktualny".equals(usunValue)) {
+            inputPrzedmiot.getItems().addAll(sala.getStanAkutalny());
+        }
+    }
+    private static void setchoosingLogic(List<Sala> s,ChoiceBox<Integer> inputNumerSali,ChoiceBox<Przedmiot> inputPrzedmiot,ChoiceBox<String> inputUsun){
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
@@ -92,42 +124,44 @@ public abstract class Przedmiot implements Cloneable, Serializable {
                 inputPrzedmiot.getItems().clear();
                 for (Sala sala : s) {
                     if(sala.getNumer() == newValue){
-                        inputPrzedmiot.getItems().addAll(sala.getPrzedmioty());
+                        Przedmiot.updatePrzedmiotList(inputPrzedmiot,inputUsun.getValue(),sala);
                         break;
                     }
                 }
             }
 
         });
+
+        inputUsun.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            // Aktualizuj listę przedmiotów w zależności od wybranego pola inputUsun
+            updatePrzedmiotList(inputPrzedmiot, newValue, s.get(inputNumerSali.getValue() - 1));
+        });
+    }
+    private static void setusunButton(List<Sala> s, Button usunButton, Label errorMessage, ChoiceBox<Integer> inputNumerSali, ChoiceBox<Przedmiot> inputPrzedmiot, ChoiceBox<String> inputUsun) {
         usunButton.setOnAction(e -> {
             errorMessage.setText("");
             Integer salaNumer = inputNumerSali.getValue();
             Przedmiot p1 = inputPrzedmiot.getValue();
+            String usunValue = inputUsun.getValue();
+
             try {
                 for (Sala sala : s) {
                     if (sala.getNumer() == salaNumer) {
-                        sala.usunZeStanu(p1);
-                        sala.usunAktualny(p1);
+                        if ("Usun ze stanu".equals(usunValue)) {
+                            sala.usunZeStanu(p1);
+                        } else {
+                            sala.usunAktualny(p1);
+                        }
+                        // Aktualizuj listę przedmiotów po usunięciu
+                        updatePrzedmiotList(inputPrzedmiot, usunValue, sala);
+                        break;
                     }
-
                 }
-            }catch(NoSuchElementException e1){
+            } catch (NoSuchElementException e1) {
                 errorMessage.setText(e1.getMessage());
-            }catch(NullPointerException e1){
+            } catch (NullPointerException e1) {
                 errorMessage.setText("Wybierz sale");
             }
         });
-        GridPane.setConstraints(numersali,0,0);
-        GridPane.setConstraints(inputNumerSali,1,0);
-        GridPane.setConstraints(przedmiot,0,1);
-        GridPane.setConstraints(inputPrzedmiot,1,1);
-        GridPane.setConstraints(closeButton,0,2);
-        GridPane.setConstraints(usunButton,1,2);
-        GridPane.setConstraints(errorMessage,2,2);
-        layout.getChildren().addAll(errorMessage,numersali,inputNumerSali,przedmiot,inputPrzedmiot,closeButton,usunButton);
-        Scene scene = new Scene(layout,650,600);
-        window.setScene(scene);
-        window.showAndWait();
     }
-
 }

@@ -106,6 +106,7 @@ public class Mysz extends Sprzet{
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,konserwacja,inputkonserwacja,nrSeryjny,inputNrSeryjny,producent,inputProducent,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
+        window.setResizable(false);
         window.showAndWait();
     }
 }

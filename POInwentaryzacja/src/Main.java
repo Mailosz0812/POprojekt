@@ -1,12 +1,23 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Stack;
 
@@ -91,39 +102,40 @@ public class Main extends Application {
         tablica.setOnAction(e -> Tablica.displayAddStol(b1.getSale()));
         MenuItem krzeslo = new MenuItem("Krzeslo");
         krzeslo.setOnAction(e -> Krzeslo.displayAddKrzeslo(b1.getSale()));
-        MenuItem usunPrzedmiot = new MenuItem("Usun Przedmiot");
-        usunPrzedmiot.setOnAction(e -> {
-            Przedmiot.usunPrzedmiotDisplay(b1.getSale());
-        });
+        MenuItem usunPrzedmiot = new MenuItem("Usuń");
+        usunPrzedmiot.setOnAction(e -> Przedmiot.usunPrzedmiotDisplay(b1.getSale()));
         MenuItem przeniesPrzedmiot = new MenuItem("Przenies Przedmiot");
-        MenuItem zapisz = new MenuItem("Zapisz stan aplikacji");
-        MenuItem wyszukajPrzedmiot = new MenuItem("Wyszukaj");
+
+//        Wyszukiwarka przedmiotów
+        TextField szukaj = new TextField();
+        Button szukajButton = new Button("Szukaj");
+        ChoiceBox<String> typWyszukiwania = new ChoiceBox<>();
+        typWyszukiwania.getItems().addAll("nazwa","typ");
+        typWyszukiwania.setValue("nazwa");
+        szukajButton.setOnAction(e -> szukaj(b1.getSale(),typWyszukiwania.getValue(),szukaj.getText()));
 
 //        Dodawanie poszczególnych menu items do menu
         Sale.getItems().addAll(dodajSale,usunSale);
         Inwentaryzacja.getItems().addAll(generujRaport,generujZestawienie);
         przedmiot.getItems().addAll(dodajPrzedmiot,usunPrzedmiot,przeniesPrzedmiot);
         dodajPrzedmiot.getItems().addAll(drukarka,biurko,komputer,monitor,mysz,projektor,stol,szafka,tablica,krzeslo);
-
         mainmenu.getMenus().addAll(Sale,Inwentaryzacja,przedmiot);
 
 //        GridPane do widoku sal
-        widokSal.setHgap(10);
-        widokSal.setVgap(10);
+        widokSal.setHgap(15);
+        widokSal.setVgap(15);
         widokSal.setPadding(new Insets(10,10,10,10));
         widokSal.setAlignment(Pos.TOP_CENTER);
-
-
         
 //        Ustawianie sceny głównej
         HBox.setHgrow(mainmenu, Priority.ALWAYS);
         HBox.setHgrow(saveButton, Priority.NEVER);
-        hbox = new HBox(mainmenu,saveButton);
+        hbox = new HBox(10,mainmenu,szukaj,szukajButton,typWyszukiwania,saveButton);
         layout.setTop(hbox);
         layout.setCenter(scrollPane);
-        scene = new Scene(layout,600,500);
+        scene = new Scene(layout,850,750);
         window.setScene(scene);
-
+        window.setResizable(false);
         updateGrid(b1.getSale());
         window.show();
     }
@@ -132,7 +144,7 @@ public class Main extends Application {
     private void updateGrid(List<Sala> sale){
         widokSal.getChildren().clear();
 
-        int Columns = 4;
+        int Columns = 5;
         int row = 1;
         int col = 0;
 
@@ -152,6 +164,68 @@ public class Main extends Application {
     public void previousLayout(GridPane previousGrid){
         layout.setCenter(previousGrid);
     }
+    public void szukaj(List<Sala> s, String poCzym, String query) {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Wyniki wyszukiwania");
+        Scene scene;
+        // ListView do wyświetlania wyników
+        ListView<String> wynikiListView = new ListView<>();
+        Label errorMessage = new Label("");
+
+        // Próba uzyskania wyników wyszukiwania
+        try {
+            ObservableList<Przedmiot> wyniki = wynikiLista(s, poCzym, query);
+            if (wyniki.isEmpty()) {
+                errorMessage.setText("Nie ma takiego przedmiotu");
+                scene = new Scene(errorMessage,650,600);
+            } else {
+                // Dodanie wyników do ListView
+                for (Przedmiot przedmiot : wyniki) {
+                    wynikiListView.getItems().add(przedmiot.toString());
+                }
+                scene = new Scene(wynikiListView,650,600);
+            }
+            window.setScene(scene);
+        } catch (IllegalArgumentException e1) {
+            // Jeśli wystąpił błąd, wyświetl błąd wyswietla się komunikat
+            errorMessage.setText(e1.getMessage());
+            scene = new Scene(errorMessage,650,600);
+            window.setScene(scene);
+        }
+        window.showAndWait();
+    }
+    public ObservableList<Przedmiot> wynikiLista(List<Sala> s, String poCzym, String query) {
+        ObservableList<Przedmiot> wyniki = FXCollections.observableArrayList();
+        if (poCzym.equals("typ") && !checkqueryInput(query)) {
+            throw new IllegalArgumentException("Nieprawidłowy typ przedmiotu");
+        }
+        for (Sala sala : s) {
+            for (Przedmiot przedmiot : sala.getPrzedmioty()) {
+                if ((poCzym.equals("typ") && checkClass(przedmiot, query)) ||
+                        (poCzym.equals("nazwa") && przedmiot.getNazwa().equals(query))) {
+                    wyniki.add(przedmiot);
+                }
+            }
+        }
+
+        return wyniki;
+    }
+    private boolean checkqueryInput(String query){
+        if(query.equals("Sprzet") || query.equals("Mebel")){
+            return true;
+        }
+        return false;
+    }
+    private boolean checkClass(Przedmiot p, String className) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            return clazz.isAssignableFrom(p.getClass());
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
 
 }
 

@@ -101,6 +101,7 @@ public class Tablica extends Mebel{
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,szerokosc,inputSzerokosc,dlugosc,inputDlugosc,wysokosc,inputwysokosc,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
+        window.setResizable(false);
         window.showAndWait();
 
     }

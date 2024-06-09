@@ -106,7 +106,9 @@ public class Biurko extends Mebel{
 
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
+        window.setResizable(false);
         window.showAndWait();
 
     }
+
 }
