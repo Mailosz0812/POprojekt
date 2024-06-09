@@ -35,7 +35,7 @@ public class Drukarka extends Sprzet{
         return new Drukarka(this);
     }
 
-     @Override
+    @Override
     public String toString() {
         return "Drukarka{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
