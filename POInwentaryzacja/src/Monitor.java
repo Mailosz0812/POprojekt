@@ -23,6 +23,11 @@ public class Monitor extends Sprzet{
     public Monitor clone(){
         return new Monitor(this);
     }
+
+    @Override
+    public String toString() {
+        return "Monitor{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
+    }
     public static void displayAddMonitor(List<Sala> s) {
 //        Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
         Stage window = new Stage();
