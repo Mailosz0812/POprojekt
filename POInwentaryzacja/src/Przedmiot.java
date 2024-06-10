@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+// Klasa abstrakcyjna Przedmiot
 public abstract class Przedmiot implements Cloneable, Serializable {
     private static final long  serialVersionUID = 1L;
     protected final String nazwa;
@@ -20,13 +20,14 @@ public abstract class Przedmiot implements Cloneable, Serializable {
     private final int id;
     private static int licznikId = 1;
 
-
+    // Konstruktor inicjalizujący obiekt Przedmiot
     protected Przedmiot(String nazwa, String data, String stanPrzedmiotu){
         this.id = licznikId++;
         setDataZakupu(data);
         this.nazwa = nazwa;
         setStanPrzedmiotu(stanPrzedmiotu);
     }
+    // Konstruktor kopiujący
     protected Przedmiot(Przedmiot p){
         this.nazwa = p.nazwa;
         this.id = p.id;
@@ -34,6 +35,7 @@ public abstract class Przedmiot implements Cloneable, Serializable {
         this.stanPrzedmiotu = p.stanPrzedmiotu;
 
     }
+    // Abstrakcyjna metoda klonująca
     @Override
     protected abstract Przedmiot clone();
     protected void setDataZakupu(String dataZakupu) {
@@ -44,7 +46,7 @@ public abstract class Przedmiot implements Cloneable, Serializable {
             this.dataZakupu = LocalDate.parse(dataZakupu);
         }
     }
-
+    // Ustawia stan przedmiotu po sprawdzeniu poprawności wartości
     public void setStanPrzedmiotu(String stan){
         if(!(stan.equals("kiepski") || stan.equals("dobry") || stan.equals("wspaniały") )){
             throw new IllegalArgumentException("Stan moze byc tylko kiepski, dobry lub wspaniały");
@@ -53,21 +55,24 @@ public abstract class Przedmiot implements Cloneable, Serializable {
             this.stanPrzedmiotu = stan;
         }
     }
+    // Zwraca stan przedmiotu
     public String getStanPrzedmiotu() {
         return stanPrzedmiotu;
     }
-
+    // Zwraca unikalny identyfikator przedmiotu
     public int getId() {
         return id;
     }
-
+    // Sprawdza, czy przedmiot jest równy innemu przedmiotowi na podstawie identyfikatora
     public boolean equals(Przedmiot p){
         return this.id == p.id;
     }
+    // Sprawdza, czy przedmiot jest nowy (zakupiony w ciągu ostatnich 50 dni)
     public boolean czyNowy(){
         LocalDate l = LocalDate.now();
         return l.isBefore(this.dataZakupu.plusDays(50));
     }
+    // Wyświetla okno dialogowe do usunięcia przedmiotu z listy sal
     public static void usunPrzedmiotDisplay(List<Sala> s)
     {
         Stage window = new Stage();
@@ -103,10 +108,11 @@ public abstract class Przedmiot implements Cloneable, Serializable {
         window.setScene(scene);
         window.showAndWait();
     }
-
+    // Zwraca nazwe przedmiotu
     public String getNazwa() {
         return this.nazwa;
     }
+    // Aktualizuje listę przedmiotów w zależności od wybranego pola inputUsun
     private static void updatePrzedmiotList(ChoiceBox<Przedmiot> inputPrzedmiot, String usunValue, Sala sala) {
         inputPrzedmiot.getItems().clear();
         if ("Usun ze stanu".equals(usunValue)) {
