@@ -9,34 +9,40 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
-
+// Klasa Komputer dziedziczy z klasy Sprzet
 public class Komputer extends Sprzet{
     private static final long  serialVersionUID = 1L;
     private String procesor;
     private final double pojRam;
     private final double pojDysku;
+    // Konstruktor klasy Komputer
     public Komputer(String nazwa,String data,String stanPrzedmiotu,String numerSeryjny,String producent,String ostatniaKonserwacja,String procesor,String pojDysku,String pojRam) {
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
         setProcesor(procesor);
         this.pojDysku = Double.parseDouble(pojDysku);
         this.pojRam = Double.parseDouble(pojRam);
     }
+    // Konstruktor kopiujący
     public Komputer(Komputer k){
         super(k);
         this.pojRam = k.pojRam;
         this.pojDysku = k.pojDysku;
         this.procesor = k.procesor;
     }
+    // Metoda klonująca obiekt Komputer
     @Override
     public Komputer clone(){
         return new Komputer(this);
     }
-
+    // Nadpisana metoda toString
     @Override
     public String toString() {
         return "Komputer{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
-
+    public String toString_2() {
+        return "Komputer{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + ",\nprocesor=" + this.procesor + ",\npojemnosc dysku=" + this.pojDysku + ",\npojemnosc RAM=" + this.pojRam + "}";
+    }
+    // Metoda ustawiająca nazwę procesora
     private void setProcesor(String procesor) {
         if(!procesor.matches("^[A-Za-z0-9]+$")){
             throw new IllegalArgumentException("Nazwa procesora moze być tylko alfanumeryczna");
@@ -45,8 +51,9 @@ public class Komputer extends Sprzet{
             this.procesor = procesor;
         }
     }
+    // Statyczna metoda do wyświetlania okna dodawania nowego komputera
     public static void displayAddKomputer(List<Sala> s){
-//        Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
+    // Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
         Stage window = new Stage();
         GridPane layout = new GridPane();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -54,7 +61,7 @@ public class Komputer extends Sprzet{
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
 
-//        Dodawanie pól formularza
+    // Dodawanie pól formularza
         Label name = new Label("Nazwa przedmiotu");
         TextField inputName = new TextField();
         Label dataZakupu = new Label("Data zakupu");
@@ -82,9 +89,11 @@ public class Komputer extends Sprzet{
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
+        // Akcja dla przycisku zamknięcia
         closeButton.setOnAction(e -> window.close());
         Button submitButton = new Button("Dodaj przedmiot");
         Label errorMessage = new Label("");
+        // Akcja dla przycisku dodania przedmiotu
         submitButton.setOnAction(e ->{
             errorMessage.setText("");
             String nazwaValue = inputName.getText();
@@ -117,7 +126,7 @@ public class Komputer extends Sprzet{
             }
         });
 
-//        Pozycjonowanie elementów w widoku siatki
+        // Pozycjonowanie elementów w widoku siatki
         GridPane.setConstraints(name,0,0);
         GridPane.setConstraints(inputName,1,0);
         GridPane.setConstraints(dataZakupu,0,1);
@@ -142,7 +151,7 @@ public class Komputer extends Sprzet{
         GridPane.setConstraints(closeButton,1,10);
         GridPane.setConstraints(errorMessage,3,8);
 
-//        Dodawanie elementow do widoku siatki i konfiguracja wyświetlania okna
+        // Dodawanie elementow do widoku siatki i konfiguracja wyświetlania okna
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,konserwacja,inputkonserwacja,nrSeryjny,inputNrSeryjny,producent,inputProducent,nazwaProcesora,inputNazwaProcesora,pojemnoscRam,inputpojemnoscRam,pojemnoscDysku,inputpojemnoscDysku,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
