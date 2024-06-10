@@ -10,18 +10,21 @@ import javafx.stage.Stage;
 
 
 import java.util.List;
-
+// Klasa Drukarka dziedziczy po klasie Sprzet
 public class Drukarka extends Sprzet{
     private static final long  serialVersionUID = 1L;
     double stanPapieru;
+    // Konstruktor klasy Drukarka
     public Drukarka(String nazwa,String data,String stanPrzedmiotu,String numerSeryjny,String producent,String ostatniaKonserwacja,double stanPapieru){
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
 
     }
+    // Konstruktor kopiujący
     public Drukarka(Drukarka d){
         super(d);
         this.stanPapieru = d.stanPapieru;
     }
+    // Metoda ustawiająca stan papieru
     private void setStanpapieru(double d){
 
             if (!(d >= 0 && d <= 100)) {
@@ -30,15 +33,20 @@ public class Drukarka extends Sprzet{
                 this.stanPapieru = d;
             }
     }
+    // Metoda klonująca obiekt Drukarka
     @Override
     public Drukarka clone(){
         return new Drukarka(this);
     }
-
+    // Nadpisana metoda toString
     @Override
     public String toString() {
         return "Drukarka{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
+    public String toString_2() {
+        return "Drukarka{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + ",\nstan papieru=" + this.stanPapieru + "}";
+    }
+    // Statyczna metoda do wyświetlania okna dodawania nowej drukarki
     public static void displayAddDrukarka(List<Sala> s){
         Stage window = new Stage();
         GridPane layout = new GridPane();
@@ -47,7 +55,7 @@ public class Drukarka extends Sprzet{
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
 
-//        Dodawanie pól i przycisków do formularza
+    // Dodawanie pól i przycisków do formularza
         Label name = new Label("Nazwa przedmiotu");
         TextField inputName = new TextField();
         Label dataZakupu = new Label("Data zakupu");
@@ -72,9 +80,11 @@ public class Drukarka extends Sprzet{
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
+        // Akcja dla przycisku zamknięcia
         closeButton.setOnAction(e -> window.close());
         Button submitButton = new Button("Dodaj przedmiot");
         Label errorMessage = new Label("");
+        // Akcja dla przycisku dodania przedmiotu
         submitButton.setOnAction(e -> {
             errorMessage.setText("");
             String nazwaValue = inputName.getText();
@@ -106,6 +116,7 @@ public class Drukarka extends Sprzet{
             }
 
         });
+        // Pozycjonowanie elementów widoku siatki
         GridPane.setConstraints(name,0,0);
         GridPane.setConstraints(inputName,1,0);
         GridPane.setConstraints(dataZakupu,0,1);
@@ -125,6 +136,7 @@ public class Drukarka extends Sprzet{
         GridPane.setConstraints(submitButton,0,8);
         GridPane.setConstraints(closeButton,1,8);
         GridPane.setConstraints(errorMessage,3,7);
+        // Dodawanie elementów do widoku siatki i konfiguracja wyświetlania okna
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,konserwacja,inputkonserwacja,nrSeryjny,inputNrSeryjny,producent,inputProducent,stanPapieru,inputStanPapieru,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
