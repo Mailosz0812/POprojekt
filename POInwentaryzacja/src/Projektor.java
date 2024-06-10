@@ -9,29 +9,34 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
-
+// Klasa Projektor dziedzicząca z klasy Sprzet
 public class Projektor extends Sprzet{
     private static final long  serialVersionUID = 1L;
-
+    // Konstruktor klasy Projektor
     public Projektor(String nazwa,String data,String stanPrzedmiotu,String numerSeryjny,String producent,String ostatniaKonserwacja){
         super(nazwa, data, stanPrzedmiotu, numerSeryjny, producent, ostatniaKonserwacja);
 
     }
+    // Konstruktor kopiujący
     public Projektor(Projektor p){
         super(p);
     }
+    // Metoda klonująca obiekt Projektor
     @Override
     public Projektor clone(){
         return new Projektor(this);
     }
-
+    // Nadpisana metoda toString
     @Override
     public String toString() {
         return "Projektor{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
-    
+    public String toString_2() {
+        return "Projektor{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + "}";
+    }
+    // Statyczna metoda do wyświetlania okna dodawania nowego projektora
     public static void displayAddProjektor(List<Sala> s) {
-//        Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
+    //  Dodawanie zmiennych potrzebny do wyświetlenia okna i widoku formularza
         Stage window = new Stage();
         GridPane layout = new GridPane();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -39,7 +44,7 @@ public class Projektor extends Sprzet{
         layout.setHgap(10);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
-//        Dodawanie pól formularza
+    //  Dodawanie pól formularza
         Label name = new Label("Nazwa przedmiotu");
         TextField inputName = new TextField();
         Label dataZakupu = new Label("Data zakupu");
@@ -61,9 +66,11 @@ public class Projektor extends Sprzet{
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
+        // Akcja dla przycisku zamknięcia
         closeButton.setOnAction(e -> window.close());
         Button submitButton = new Button("Dodaj przedmiot");
         Label errorMessage = new Label("");
+        // Akcja dla przycisku dodania przedmiotu
         submitButton.setOnAction(e -> {
             errorMessage.setText("");
             String nazwaValue = inputName.getText();
@@ -91,7 +98,7 @@ public class Projektor extends Sprzet{
             }
         });
 
-//        Pozycjonowanie elementów widoku siatki
+        // Pozycjonowanie elementów widoku siatki
         GridPane.setConstraints(name,0,0);
         GridPane.setConstraints(inputName,1,0);
         GridPane.setConstraints(dataZakupu,0,1);
@@ -109,7 +116,7 @@ public class Projektor extends Sprzet{
         GridPane.setConstraints(submitButton,0,7);
         GridPane.setConstraints(closeButton,1,7);
         GridPane.setConstraints(errorMessage,3,6);
-
+        // Dodawanie elementów do widoku siatki i konfiguracja wyświetlania okna
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,konserwacja,inputkonserwacja,nrSeryjny,inputNrSeryjny,producent,inputProducent,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
