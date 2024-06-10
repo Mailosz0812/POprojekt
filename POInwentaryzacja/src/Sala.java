@@ -22,23 +22,26 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 
-
+// Klasa reprezentujaca sale w budynku
 public class Sala implements Serializable {
     private static final long  serialVersionUID = 1L;
     private final int numer;
     private final List<Przedmiot> przedmioty = new ArrayList<>();
     private final List<Przedmiot> stanAkutalny = new ArrayList<>();
     private final List<Raport> raporty = new ArrayList<>();
-
+    // Konstruktor inicjalizujący obiekt Sala z podanym numerem sali
     public Sala(int numer){
         this.numer = numer;
     }
+    // Dodaje przedmiot do listy przedmiotów na stanie
     public void dodajPrzedmiotnastan(Przedmiot p){
         przedmioty.add(p.clone());
     }
+    // Dodaje przedmiot do listy aktualnych przedmiotów w sali
     public void dodajPrzedmiotAktualny(Przedmiot p){
         stanAkutalny.add(p.clone());
     }
+    // Usuwa przedmiot z listy aktualnych przedmiotów w sali
     public void usunAktualny(Przedmiot p1){
         if(stanAkutalny.isEmpty()){
             throw new NoSuchElementException("Nie ma więcej przedmiotów akutalnie na stanie");
@@ -47,15 +50,15 @@ public class Sala implements Serializable {
             stanAkutalny.remove(p1);
         }
     }
-
+    // Zwraca listę wszystkich przedmiotów przypisanych do sali
     public List<Przedmiot> getPrzedmioty() {
         return przedmioty;
     }
-
+    // Zwraca listę aktualnych przedmiotów w sali
     public List<Przedmiot> getStanAkutalny() {
         return stanAkutalny;
     }
-
+    // Usuwa przedmiot z listy przedmiotów na stanie
     public void usunZeStanu(Przedmiot p1){
         if(przedmioty.isEmpty()){
             throw new NoSuchElementException("Nie ma więcej przedmiotów na stanie");
@@ -64,14 +67,17 @@ public class Sala implements Serializable {
             przedmioty.remove(p1);
         }
     }
+    // Generuje raport na podstawie aktualnych przedmiotów w sali
     public Raport generujRaport(){
         Raport r = new Raport(LocalDate.now(),this.stanAkutalny);
         raporty.add(r);
         return r;
     }
+    // Zwraca numer sali
     public int getNumer(){
         return this.numer;
     }
+    // Generuje zestawienie przedmiotów na podstawie podanego kryterium
     public List<Przedmiot> generujZestawienie(String kryterium) {
         if (kryterium == null) {
             throw new NullPointerException("Wybierz kryterium");
@@ -98,7 +104,7 @@ public class Sala implements Serializable {
 
         return zestawienie;
     }
-
+    // Zwraca numer sali jako string
     public String toString(){
         return Integer.toString(this.numer);
     }
@@ -198,18 +204,18 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
 
 
     public static void dodajDisplay(Budynek b1){
-//        Definiowanie okna aplikacji i zablokowanie innych okien oprócz aktualnego
+    // Definiowanie okna aplikacji i zablokowanie innych okien oprócz aktualnego
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Sala");
 
-//        Definiowanie i ustawianie widoku siatki
+    // Definiowanie i ustawianie widoku siatki
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(10,10,10,10));
 
-//        Definiowanie elemntow siatki
+    // Definiowanie elemntow siatki
         Button closeButton = new Button("Zamknij");
         Button addSala = new Button("Dodaj Sale");
         closeButton.setOnAction(e -> window.close());
@@ -227,7 +233,7 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
             }
         });
 
-//        Pozycjonowanie elemntów w widoku siakti
+    // Pozycjonowanie elemntów w widoku siakti
         GridPane.setConstraints(salaLabel,0,0);
         GridPane.setConstraints(inputNumber,1,0);
         GridPane.setConstraints(closeButton,0,2);
@@ -255,13 +261,13 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Sala");
 
-//        Definiowanie i ustawianie widoku siatki
+    // Definiowanie i ustawianie widoku siatki
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(10,10,10,10));
 
-//        Definiowanie elemntow siatki
+    // Definiowanie elemntow siatki
         Button closeButton = new Button("Zamknij");
         Button deleteSala = new Button("Usun Sale");
         closeButton.setOnAction(e -> window.close());
@@ -278,7 +284,7 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
                 b1.usunSale(num);
             }
         });
-//        Pozycjonowanie elemntów w widoku siakti
+    // Pozycjonowanie elemntów w widoku siakti
         GridPane.setConstraints(salaLabel,0,0);
         GridPane.setConstraints(inputNumber,1,0);
         GridPane.setConstraints(closeButton,0,2);
@@ -292,7 +298,7 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
 
     }
 
-//    Metoda sprawdza czy w istnieje sala o numerze podanym przez uzytkownika
+// Metoda sprawdza czy w istnieje sala o numerze podanym przez uzytkownika
     private static boolean isThereaNumber(List<Sala> l1,int numer){
         for (Sala sala : l1) {
             if(sala.getNumer() == numer){
@@ -301,6 +307,7 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
         }
         return false;
     }
+    // Akcja wyswietlania raportu
     private void setwyswietlraport(Button wyswietlraport,ChoiceBox<Raport> raportChoiceBox){
         wyswietlraport.setOnAction(e -> {
             Raport selectedRaport = raportChoiceBox.getValue();
@@ -309,6 +316,7 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
             }
         });
     }
+    // Akcja generowania zestawienia
     private void setgenerujZestawienie(Button generujZestawienie,ChoiceBox<String> inputkryterium) {
 
         generujZestawienie.setOnAction(e -> {
@@ -344,6 +352,7 @@ public GridPane display(Main main, GridPane previousGrid,Budynek b1) {
             }
         });
     }
+    // Akcja przeniesienia przycisku
     private void setprzeniesButton(Label errorMessage,ChoiceBox<Przedmiot> inputPrzedmiot,Button przeniesButton,ChoiceBox<Integer> inputNumer,Budynek b1){
         przeniesButton.setOnAction(e -> {
             try{
