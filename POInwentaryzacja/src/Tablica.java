@@ -9,25 +9,31 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
-
+// Klasa Tablica dziedzicząca z klasy Mebel
 public class Tablica extends Mebel{
     private static final long  serialVersionUID = 1L;
+    // Konstruktor klasy Tablica
     public Tablica(String nazwa,String data,String stanPrzedmiotu, String szerokosc,String dlugosc,String wysokosc){
         super(nazwa, data, stanPrzedmiotu, szerokosc, dlugosc, wysokosc);
     }
+    // Konstruktor kopiujący
     public Tablica(Tablica t){
         super(t);
     }
+    // Metoda klonująca obiekt Tablica
     @Override
     public Tablica clone(){
         return new Tablica(this);
     }
-
+    // Nadpisana metoda toString
     @Override
     public String toString() {
         return "Tablica{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
-   
+    public String toString_2() {
+        return "Tablica{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc +"}";
+    }
+    // Statyczna metoda do wyświetlania okna dodawania nowej tablicy
     public static void displayAddStol(List<Sala> s){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -36,7 +42,7 @@ public class Tablica extends Mebel{
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
 
-//        Dodawanie pól i przycisków do formularza
+    // Dodawanie pól i przycisków do formularza
         Label name = new Label("Nazwa przedmiotu");
         TextField inputName = new TextField();
         Label dataZakupu = new Label("Data zakupu");
@@ -58,9 +64,11 @@ public class Tablica extends Mebel{
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
+        // Akcja dla przycisku zamknięcia
         closeButton.setOnAction(e -> window.close());
         Button submitButton = new Button("Dodaj przedmiot");
         Label errorMessage = new Label("");
+        // Akcja dla przycisku dodania przedmiotu
         submitButton.setOnAction(e -> {
             errorMessage.setText("");
             String nazwa = inputName.getText();
@@ -87,6 +95,7 @@ public class Tablica extends Mebel{
                 errorMessage.setText(e1.getMessage());
             }
         });
+        // Pozycjonowanie elementów w widoku siatki
         GridPane.setConstraints(name,0,0);
         GridPane.setConstraints(inputName,1,0);
         GridPane.setConstraints(dataZakupu,0,1);
@@ -104,6 +113,7 @@ public class Tablica extends Mebel{
         GridPane.setConstraints(submitButton,0,7);
         GridPane.setConstraints(closeButton,1,7);
         GridPane.setConstraints(errorMessage,3,6);
+        // Dodawanie elementów do widoku siatki i konfiguracja wyświetlania okna
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,szerokosc,inputSzerokosc,dlugosc,inputDlugosc,wysokosc,inputwysokosc,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
