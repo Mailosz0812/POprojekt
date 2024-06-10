@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 public abstract class Przedmiot implements Cloneable, Serializable {
     private static final long  serialVersionUID = 1L;
     protected final String nazwa;
-    private LocalDate dataZakupu;
+    protected LocalDate dataZakupu;
     protected String stanPrzedmiotu;
     private final int id;
     private static int licznikId = 1;
@@ -38,6 +38,7 @@ public abstract class Przedmiot implements Cloneable, Serializable {
     // Abstrakcyjna metoda klonująca
     @Override
     protected abstract Przedmiot clone();
+    protected abstract String toString_2();
     protected void setDataZakupu(String dataZakupu) {
         if(!dataZakupu.matches("^(?:(?!0000)\\d{4})-(?:(?:0[1-9]|1[0-2]))-(?:(?:0[1-9]|1\\d|2\\d|3[01]))$")){
             throw new IllegalArgumentException("Podano zły format daty");

@@ -40,7 +40,7 @@ public class Komputer extends Sprzet{
         return "Komputer{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
     public String toString_2() {
-        return "Komputer{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + ",\nprocesor=" + this.procesor + ",\npojemnosc dysku=" + this.pojDysku + ",\npojemnosc RAM=" + this.pojRam + "}";
+        return "Komputer{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.dataZakupu + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + ",\nprocesor=" + this.procesor + ",\npojemnosc dysku=" + this.pojDysku + ",\npojemnosc RAM=" + this.pojRam + "}";
     }
     // Metoda ustawiająca nazwę procesora
     private void setProcesor(String procesor) {

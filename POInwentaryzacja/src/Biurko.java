@@ -31,7 +31,7 @@ public class Biurko extends Mebel{
         return "Biurko{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
     public String toString_2() {
-        return "Biurko{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc +"}";
+        return "Biurko{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.dataZakupu+ ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc +"}";
     }
     // Statyczna metoda do wyswietlania okna dodawania nowego biurka
     public static void display(List<Sala> s){

@@ -31,7 +31,7 @@ public class Mysz extends Sprzet{
         return "Mysz{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
     public String toString_2() {
-        return "Mysz{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + "}";
+        return "Mysz{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.dataZakupu + ",\nnumer seryjny=" + this.numerSeryjny + ",\nproducent=" + this.producent + ",\nostatnia konserwacja=" + this.ostatniaKonserwacja + "}";
     }
     // Statyczna metoda do wyświetlania okna dodawania nowej myszy
     public static void displayAddMysz(List<Sala> s) {

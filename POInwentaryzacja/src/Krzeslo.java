@@ -35,7 +35,7 @@ public class Krzeslo extends Mebel {
         return "Krzeslo{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
     public String toString_2() {
-        return "Krzeslo{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc + ",\nkolor=" + this.kolor + "}";
+        return "Krzeslo{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.dataZakupu + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc + ",\nkolor=" + this.kolor + "}";
     }
     // Metoda ustawiająca kolor
     public void setKolor(String kolor){

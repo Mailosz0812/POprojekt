@@ -31,7 +31,7 @@ public class Szafka extends Mebel{
         return "Szafka{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
     public String toString_2() {
-        return "Szafka{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc +"}";
+        return "Szafka{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.dataZakupu + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc +"}";
     }
     // Metoda do wyświetlania okna dodawania nowej szafki
     public static void displayAddSzafka(List<Sala> s){

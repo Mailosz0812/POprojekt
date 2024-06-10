@@ -1,8 +1,8 @@
 public abstract class Mebel extends Przedmiot{
     private static final long  serialVersionUID = 1L;
-    private int szerokosc;
-    private int wysokosc;
-    private int dlugosc;
+    protected int szerokosc;
+    protected int wysokosc;
+    protected int dlugosc;
     // Konstruktor inicjalizujący obiekt Mebel
     public Mebel(String nazwa,String data,String stanPrzedmiotu, String szerokosc,String wysokosc,String dlugosc){
         super(nazwa, data, stanPrzedmiotu);
@@ -15,6 +15,7 @@ public abstract class Mebel extends Przedmiot{
         super(m);
     }
     // Ustawia szerokość mebla po sprawdzeniu poprawności formatu
+    protected abstract String toString_2();
     public void setSzerokosc(String szerokosc) {
         if (!isInt(szerokosc)) {
             throw new IllegalArgumentException("Szerkość musi być liczbą");

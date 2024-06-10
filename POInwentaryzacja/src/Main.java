@@ -180,7 +180,7 @@ public class Main extends Application {
             } else {
                 // Dodanie wyników do ListView
                 for (Przedmiot przedmiot : wyniki) {
-                    wynikiListView.getItems().add(przedmiot.toString());
+                    wynikiListView.getItems().add(przedmiot.toString_2());
                 }
                 scene = new Scene(wynikiListView,650,600);
             }

@@ -4,9 +4,9 @@ import static java.time.LocalDate.parse;
 // Klasa abstrakcyjna Sprzet
 public abstract class Sprzet extends Przedmiot{
     private static final long  serialVersionUID = 1L;
-    private LocalDate ostatniaKonserwacja;
-    private final String numerSeryjny;
-    private String producent;
+    protected LocalDate ostatniaKonserwacja;
+    protected final String numerSeryjny;
+    protected String producent;
     // Konstruktor klasy Sprzet
     protected Sprzet(String nazwa,String data,String stanPrzedmiotu,String numerSeryjny,String producent,String ostatniaKonserwacja){
         super(nazwa,data,stanPrzedmiotu);
@@ -21,6 +21,7 @@ public abstract class Sprzet extends Przedmiot{
         this.producent = s.producent;
         this.ostatniaKonserwacja = s.ostatniaKonserwacja;
     }
+    protected abstract String toString_2();
     // Metoda abstrakcyjna do klonowania obiektu
     @Override
     protected abstract Sprzet clone();
