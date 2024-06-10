@@ -9,25 +9,31 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
-
+// Klasa Biurko dziedziczy po klasie abstrakcyjnej Mebel
 public class Biurko extends Mebel{
     private static final long  serialVersionUID = 1L;
+    // Konstruktor klasy Biurko
     public Biurko(String nazwa,String data,String stanPrzedmiotu,String szerokosc,String wysokosc,String dlugosc){
         super(nazwa, data, stanPrzedmiotu, szerokosc, dlugosc, wysokosc);
     }
+    // Konstruktor kopiujacy
     public Biurko(Biurko b){
         super(b);
     }
+    // Metoda klonujaca obiekt Biurko
     @Override
     public Biurko clone(){
         return new Biurko(this);
     }
-
+    // Nadpisane metody toString
     @Override
     public String toString() {
         return "Biurko{nazwa='" + this.nazwa + "', stan=" + this.stanPrzedmiotu + "}";
     }
-
+    public String toString_2() {
+        return "Biurko{nazwa='" + this.nazwa + "',\nstan=" + this.stanPrzedmiotu + ",\ndata zakupu=" + this.data + ",\nszerokosc=" + this.szerokosc + ",\nwysokosc=" + this.wysokosc + ",\ndlugosc=" + this.dlugosc +"}";
+    }
+    // Statyczna metoda do wyswietlania okna dodawania nowego biurka
     public static void display(List<Sala> s){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -36,7 +42,7 @@ public class Biurko extends Mebel{
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
 
-//        Dodawanie pól i przycisków do formularza
+    // Dodawanie pol i przyciskow do formularza
         Label name = new Label("Nazwa przedmiotu");
         TextField inputName = new TextField();
         Label dataZakupu = new Label("Data zakupu");
@@ -58,9 +64,11 @@ public class Biurko extends Mebel{
         for (Sala sala : s) {
             inputNumerSali.getItems().add(sala.getNumer());
         }
+        // Akcja dla przycisku zamkniecia
         closeButton.setOnAction(e -> window.close());
         Button submitButton = new Button("Dodaj przedmiot");
         Label errorMessage = new Label("");
+        // Akcja dla przycisku dodania przedmiotu
         submitButton.setOnAction(e -> {
             errorMessage.setText("");
             String nazwa = inputName.getText();
@@ -90,6 +98,7 @@ public class Biurko extends Mebel{
 
 
         });
+        // Pozycjonowanie elementow widoku siatki
         GridPane.setConstraints(name,0,0);
         GridPane.setConstraints(inputName,1,0);
         GridPane.setConstraints(dataZakupu,0,1);
@@ -109,7 +118,7 @@ public class Biurko extends Mebel{
         GridPane.setConstraints(errorMessage,3,6);
         layout.getChildren().addAll(name,inputName,dataZakupu,inputDataZakupu,stan,stanPrzedmiotu,szerokosc,inputSzerokosc,dlugosc,inputDlugosc,wysokosc,inputwysokosc,numerSali,inputNumerSali,submitButton,closeButton,errorMessage);
 
-
+        // Konfiguracja sceny i wyswietlenie okna
         Scene scene = new Scene(layout,650,600);
         window.setScene(scene);
         window.setResizable(false);
