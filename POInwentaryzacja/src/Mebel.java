@@ -13,9 +13,14 @@ public abstract class Mebel extends Przedmiot{
     // Konstruktor kopiujący
     public Mebel(Mebel m){
         super(m);
+        this.szerokosc = m.szerokosc;
+        this.dlugosc = m.dlugosc;
+        this.wysokosc = m.wysokosc;
+
     }
-    // Ustawia szerokość mebla po sprawdzeniu poprawności formatu
+
     protected abstract String toString_2();
+    // Ustawia szerokość mebla po sprawdzeniu poprawności formatu
     public void setSzerokosc(String szerokosc) {
         if (!isInt(szerokosc)) {
             throw new IllegalArgumentException("Szerkość musi być liczbą");

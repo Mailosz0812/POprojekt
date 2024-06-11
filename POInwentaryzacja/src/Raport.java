@@ -24,6 +24,9 @@ public class Raport implements Serializable {
         this.data = data;
         this.przedmioty = new ArrayList<>(przedmioty);
     }
+    public String toString(){
+        return "Raport: "+data;
+    }
     // Wyświetla okno raportu
     public void displayRaport(){
         Stage window = new Stage();
